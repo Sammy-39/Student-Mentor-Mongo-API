@@ -21,6 +21,21 @@ router.get("/mentors",async (req,res)=>{
     }
 })
 
+router.get("/mentor/:id", async (req,res)=>{
+    try{
+        let client = await mongoClient.connect(dbURL,{useUnifiedTopology:true})
+        let db = client.db("students-mentors-db")
+        let mentorData = await db.collection("mentorsCol").findOne({id:`ment-${req.params.id}`})
+        client.close()
+        res.status(200).json(mentorData)
+    }
+    catch(err){
+        res.status(400).json({
+            message: err.message
+        })
+    }
+})
+
 router.post("/mentor", async (req,res)=>{
     try{
         let client = await mongoClient.connect(dbURL,{useUnifiedTopology:true})

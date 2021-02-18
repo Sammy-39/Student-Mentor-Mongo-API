@@ -48,7 +48,6 @@
                 <li> Get all Students - <b>/api/students</b> </li>
                 <li> Get Student by ID - <b>/api/student/${student_ID}</b> </li>
                 <li> Post Student name with body { "name":${student_name} } - <b>/api/student</b> </li>
-                <li> Update Student name by (Put) ID with body { "name":${student_name} } - <b>/api/student/${student_ID}</b> </li>
                 <li> Assign mentor to student and students to mentor using Student ID (Patch) with body { "mentorId":${mentor_id} } - <b>/api/student/${student_ID}</b> </li>
                 <li> Delete Student by ID - <b>/api/student/${student_ID}</b>  </li>
             </ul>
@@ -59,7 +58,6 @@
                 <li> Get all Mentors - <b>/api/mentors</b>  </li>
                 <li> Get Mentor by ID - <b>/api/mentor/${mentor_ID}</b>  </li>
                 <li> Post Mentor name with body { "name":${mentor_name} } - <b>/api/mentor</b>  </li>
-                <li> Update Mentor name by ID (Put) with body { "name":${mentor_name} } - <b>/api/mentor/${mentor_ID}</b>  </li>
                 <li> Assign students to mentor by mentor ID (Patch) with body { "studsId":[${studId}] } - <b>/api/mentor/${mentor_ID}</b>  </li>
                 <li> Delete Student by ID - <b>/api/mentor/${mentor_ID}</b>  </li>
             </ul>

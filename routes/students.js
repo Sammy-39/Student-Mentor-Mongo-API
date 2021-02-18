@@ -21,6 +21,21 @@ router.get("/students",async (req,res)=>{
     }
 })
 
+router.get("/student/:id", async (req,res)=>{
+    try{
+        let client = await mongoClient.connect(dbURL,{useUnifiedTopology:true})
+        let db = client.db("students-mentors-db")
+        let studentData = await db.collection("studentsCol").findOne({id:`stud-${req.params.id}`})
+        client.close()
+        res.status(200).json(studentData)
+    }
+    catch(err){
+        res.status(400).json({
+            message: err.message
+        })
+    }
+})
+
 router.post("/student", async (req,res)=>{
     try{
         let client = await mongoClient.connect(dbURL,{useUnifiedTopology:true})
@@ -49,8 +64,7 @@ router.patch("/student/:id", async (req,res)=>{
         if(mentor){
             if(student.mentorId){
                 let prevMentor = student.mentorId
-                let x = await db.collection("mentorsCol").updateOne({id:prevMentor},{$pull: {"studsId": `stud-${req.params.id}`}})
-                console.log(x)
+                await db.collection("mentorsCol").updateOne({id:prevMentor},{$pull: {"studsId": `stud-${req.params.id}`}})
             }
             await db.collection("studentsCol").updateOne({id:`stud-${req.params.id}`},{$set: {"mentorId": req.body.mentorId}})
             if(!mentor.studsId){ 

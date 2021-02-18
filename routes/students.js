@@ -62,7 +62,7 @@ router.patch("/student/:id", async (req,res)=>{
         let mentor = await db.collection("mentorsCol").findOne({id:req.body.mentorId})
         let student = await db.collection("studentsCol").findOne({id:`stud-${req.params.id}`})
         if(mentor){
-            if(student.mentorId){
+            if(student.mentorId && student.mentorId!=req.body.mentorId){
                 let prevMentor = student.mentorId
                 await db.collection("mentorsCol").updateOne({id:prevMentor},{$pull: {"studsId": `stud-${req.params.id}`}})
             }
